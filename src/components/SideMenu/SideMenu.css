@@ -28,12 +28,33 @@
   text-decoration: none;
   display: flex;
   gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
 }
 
+.side-menu__menu-item:hover,
 .side-menu__menu-item.active {
   background: #fff;
   color: #ef233c;
-  padding: 0.5rem 1rem;
   border-radius: 15px;
   font-weight: bold;
+}
+
+.side-menu__logout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .side-menu {
+    height: unset;
+  }
+  .side-menu__logout,
+  .side-menu__menu {
+    display: none;
+  }
+  .side-menu__logo {
+    margin: 0;
+  }
 }
