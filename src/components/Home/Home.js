@@ -1,15 +1,28 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import authStore from "../../stores/authStore";
-import Login from "../Auth/Login";
+import SemesterList from "../SemesterList/SemesterList";
+import SideMenu from "../SideMenu/SideMenu";
+import "./Home.css";
 
 const Home = () => {
   console.log(authStore.user);
   const navigate = useNavigate();
-  if (!authStore.user) navigate("/login");
+
+  useEffect(() => {
+    !authStore.user && navigate("/login");
+  }, [authStore.user]);
+
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="home">
+      <div className="home__side-menu">
+        <SideMenu />
+      </div>
+      <div className="home__playground">
+        <Routes>
+          <Route path="/" element={<SemesterList />} />
+        </Routes>
+      </div>
     </div>
   );
 };

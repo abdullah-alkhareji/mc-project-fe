@@ -1,0 +1,16 @@
+.home {
+  min-height: 100vh;
+  background: #edf2f4;
+  display: flex;
+}
+
+.home__side-menu {
+  /* background: #ef233c; */
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+.home__playground {
+  /* background: blue; */
+  flex-grow: 7;
+}
