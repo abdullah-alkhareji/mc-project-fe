@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./auth.css";
 import svg from "../../assets/svg/svg-login.svg";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,9 @@ const Register = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
-  if (authStore.user) navigate("/");
+  useEffect(() => {
+    authStore.user ? navigate("/") : console.log("not user");
+  });
 
   const handleChange = (event) =>
     setUser({ ...user, [event.target.name]: event.target.value });
