@@ -2,15 +2,27 @@
   min-height: 100vh;
   background: #edf2f4;
   display: flex;
+  flex-direction: row;
 }
 
 .home__side-menu {
   /* background: #ef233c; */
   flex-grow: 1;
-  padding: 1rem;
+  padding: 12px;
 }
 
 .home__playground {
   /* background: blue; */
   flex-grow: 7;
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    flex-direction: column;
+  }
+  .home__side-menu,
+  .home__playground {
+    /* padding: 0; */
+    flex-grow: unset;
+  }
 }

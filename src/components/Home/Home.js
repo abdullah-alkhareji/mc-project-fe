@@ -19,9 +19,7 @@ const Home = () => {
         <SideMenu />
       </div>
       <div className="home__playground">
-        <Routes>
-          <Route path="/" element={<SemesterList />} />
-        </Routes>
+        <SemesterList />
       </div>
     </div>
   );
