@@ -34,7 +34,7 @@ class AuthStore {
       const res2 = await instance.get("/api/users/me/");
       this.user = res2.data;
       console.log("2", this.user);
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       console.log("login", error);
     }

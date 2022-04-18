@@ -10,7 +10,7 @@ const Register = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    authStore.user ? navigate("/") : console.log("not user");
+    authStore.user ? navigate("/home") : console.log("not user");
   });
 
   const handleChange = (event) =>
