@@ -1,16 +1,16 @@
-import { Route, Routes } from "react-router-dom";
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Auth from "./components/Auth/Auth";
 import Home from "./components/Home/Home";
+import authStore from "./stores/authStore";
 
 const App = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
-  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    !authStore.user && navigate("/login");
+  }, [authStore.user]);
+
+  return authStore.user ? <Home /> : <Auth />;
 };
 
 export default App;
