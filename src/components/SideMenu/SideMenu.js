@@ -13,19 +13,8 @@ const SideMenu = () => {
   };
   return (
     <div className="side-menu">
-      <div>
-        <h1 className="side-menu__logo">{"<Evaluation>"}</h1>
-        <div className="side-menu__menu">
-          <NavLink to="/home" className="side-menu__menu-item">
-            <IoHome size={24} />
-            Home
-          </NavLink>
-          <NavLink to="/home/semesters" className="side-menu__menu-item">
-            <IoHome size={24} />
-            Home2
-          </NavLink>
-        </div>
-      </div>
+      <h1 className="side-menu__logo">{"<Admin Page>"}</h1>
+
       <div className="side-menu__logout">
         <Button onClick={handleLogout}>Logout</Button>
       </div>
