@@ -15,6 +15,18 @@ class ProjectStore {
       console.log({ error });
     }
   };
+
+  addProject = async (project, semesterId, handleClose) => {
+    try {
+      project.semester = semesterId;
+      console.log("project store", project);
+      const res = await instance.post("api/project/", project);
+      this.projects.push(res.data);
+      handleClose();
+    } catch (error) {
+      console.log({ error });
+    }
+  };
 }
 
 const projectStore = new ProjectStore();

@@ -1,0 +1,13 @@
+.add-project__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-project__btns-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.add-project__btns-group > Button {
+  flex-grow: 1;
+}
