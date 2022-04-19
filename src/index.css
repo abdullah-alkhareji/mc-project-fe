@@ -42,3 +42,7 @@ a {
   color: #fff;
   margin: 0.5rem 0;
 }
+
+.ak-btn:hover {
+  background: #0c63e4;
+}
