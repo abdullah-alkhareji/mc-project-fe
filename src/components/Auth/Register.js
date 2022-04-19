@@ -48,6 +48,7 @@ const Register = () => {
               name="email"
               onChange={handleChange}
               required
+              className="ak-input"
             />
           </div>
           <div className="auth__right-form-item">
@@ -57,6 +58,7 @@ const Register = () => {
               name="username"
               onChange={handleChange}
               required
+              className="ak-input"
             />
           </div>
           <div className="auth__right-form-item">
@@ -66,6 +68,7 @@ const Register = () => {
               name="password"
               onChange={handleChange}
               required
+              className="ak-input"
             />
           </div>
           <Button type="submit">Register</Button>

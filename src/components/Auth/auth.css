@@ -64,13 +64,6 @@
   width: 100%;
 }
 
-.auth__right-form-item > input {
-  border: solid 1px #2b2d4240;
-  padding: 0.5rem 0.75rem;
-  border-radius: 15px;
-  margin: 0.5rem 0;
-}
-
 /* media query */
 @media screen and (max-width: 768px) {
   .auth {

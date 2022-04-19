@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import AddProject from "../AddProject/AddProject";
 
 const ProjectItem = ({ project }) => {
   return (
@@ -9,8 +10,8 @@ const ProjectItem = ({ project }) => {
           {project.name}{" "}
           <span className="text-secondary fw-light">({project.weight})</span>
         </h6>
-        <Button variant="primary" className="btn-sm project-list__header-btn">
-          + Add Team
+        <Button variant="link" className="btn-sm project-list__header-btn">
+          <b>+</b> Add Team
         </Button>
       </div>
       <hr className="my-2" />

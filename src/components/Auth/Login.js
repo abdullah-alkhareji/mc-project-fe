@@ -48,6 +48,7 @@ const Login = () => {
               name="username"
               onChange={handleChange}
               required
+              className="ak-input"
             />
           </div>
           <div className="auth__right-form-item">
@@ -57,6 +58,7 @@ const Login = () => {
               name="password"
               onChange={handleChange}
               required
+              className="ak-input"
             />
           </div>
           <Button type="submit">Login</Button>
