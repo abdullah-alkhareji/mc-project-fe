@@ -1,0 +1,47 @@
+.project-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-list__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.project-list__header-btn {
+  text-decoration: none !important;
+  background: #253cef !important;
+  /* color: #333 !important;
+  border: #333 solid 1px !important; */
+  border-radius: 15px !important;
+}
+
+.project-list__header-btn:hover {
+  background: #0c63e4 !important;
+}
+
+.project-list__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-list__item {
+  background: #e7f1ff50;
+  border: solid 1px #e7f1ff;
+  border-radius: 15px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.project-list__item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-list__item-teams {
+  margin: 0;
+  list-style: none;
+}
