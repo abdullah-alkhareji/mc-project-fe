@@ -1,0 +1,48 @@
+.semester-list {
+  padding: 2rem 12px;
+}
+
+.semester-list__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.semester-list__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.semester-list__item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.semester-list__item-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 12px;
+  border: solid 1px #ccc7;
+  /* border-radius: 15px 15px 0 0; */
+}
+
+.semester-list__item-body {
+  height: max-content;
+  background-color: #fff8;
+  border: solid 1px #ccc7;
+  padding: 12px;
+  transition: scale 0.3s ease-in-out;
+}
+
+.semester-list__item-body.hide {
+  display: none;
+  transform: scale(0);
+}
+
+@media screen and (max-width: 768px) {
+  .semester-list {
+    padding: 12px;
+  }
+}
