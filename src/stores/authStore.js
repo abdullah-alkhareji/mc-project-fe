@@ -22,7 +22,7 @@ class AuthStore {
       await instance.post("/api/users/", userData);
       await this.login(userData, navigate);
     } catch (error) {
-      console.log("register", error);
+      console.log({ error });
     }
   };
 
@@ -30,13 +30,11 @@ class AuthStore {
     try {
       const res = await instance.post("/api/jwt/create/", userData);
       this.setUser(res.data.access);
-      console.log("1", this.user);
       const res2 = await instance.get("/api/users/me/");
       this.user = res2.data;
-      console.log("2", this.user);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
-      console.log("login", error);
+      console.log({ error });
     }
   };
 
