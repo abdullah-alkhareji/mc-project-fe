@@ -13,10 +13,7 @@ const Home = () => {
         <SideMenu />
       </div>
       <div className="home__playground container">
-        <Routes>
-          <Route path="/" element={<SemesterList />} />
-          <Route path="/add-project" element={<AddProject />} />
-        </Routes>
+        <SemesterList />
       </div>
     </div>
   );

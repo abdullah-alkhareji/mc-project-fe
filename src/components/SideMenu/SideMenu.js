@@ -1,7 +1,6 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./SideMenu.css";
-import { IoHome } from "react-icons/io5";
 import Button from "../Button";
 import authStore from "../../stores/authStore";
 

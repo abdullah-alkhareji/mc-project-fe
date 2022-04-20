@@ -5,8 +5,8 @@ import Button from "../Button";
 import projectStore from "../../stores/projectStore";
 
 const AddProject = ({ semester }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [project, setProject] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const handleClose = () => setIsOpen(false);
   const handleOpen = () => setIsOpen(true);
   const handleChange = (e) => {
@@ -41,7 +41,7 @@ const AddProject = ({ semester }) => {
               onChange={(e) => handleChange(e)}
             />
             <input
-              type="text"
+              type="number"
               placeholder="Project Weight"
               name="weight"
               required
@@ -49,9 +49,7 @@ const AddProject = ({ semester }) => {
               onChange={(e) => handleChange(e)}
             />
             <div className="add-project__btns-group">
-              <Button variant="primary" className="">
-                Add
-              </Button>
+              <Button variant="primary">Add</Button>
               <Button variant="outline-primary" onClick={handleClose}>
                 Cancel
               </Button>

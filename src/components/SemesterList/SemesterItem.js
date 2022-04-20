@@ -24,11 +24,6 @@ const SemesterItem = ({ semester }) => {
       <Accordion.Header>{semester.name.toUpperCase()}</Accordion.Header>
       <Accordion.Body>
         <ProjectList semester={semester} />
-        {/* {projectsList.length > 0 ? (
-          projectsList
-        ) : (
-          <h6 className="text-danger">There is no project</h6>
-        )} */}
       </Accordion.Body>
     </Accordion.Item>
   );
