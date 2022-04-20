@@ -1,0 +1,16 @@
+.add-team__btn {
+  text-decoration: none !important;
+  background: unset !important;
+  border: none;
+  outline: none;
+  color: #333 !important;
+}
+
+.add-team__btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.add-team__btn-group > Button {
+  flex-grow: 1;
+}

@@ -1,0 +1,17 @@
+.team-details {
+  padding: 0.5rem 0.75rem;
+  background-color: #fff;
+  border: solid 1px #0001;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+.team-details > p {
+  text-transform: capitalize;
+  color: #333;
+}
