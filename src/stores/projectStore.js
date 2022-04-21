@@ -1,5 +1,5 @@
-const { makeAutoObservable } = require("mobx");
-const { instance } = require("./instance");
+import { makeAutoObservable } from "mobx";
+import { instance } from "./instance";
 
 class ProjectStore {
   constructor() {
@@ -16,12 +16,21 @@ class ProjectStore {
     }
   };
 
-  addProject = async (project, semesterId, handleClose) => {
+  addProject = async (
+    project,
+    criteria,
+    semesterId,
+    handleClose,
+    setCriteriaa
+  ) => {
     try {
       project.semester = semesterId;
+      project.criteria = criteria;
+      console.log({ project });
       const res = await instance.post("api/project/", project);
       this.projects.push(res.data);
       handleClose();
+      setCriteriaa([]);
     } catch (error) {
       console.log({ error });
     }

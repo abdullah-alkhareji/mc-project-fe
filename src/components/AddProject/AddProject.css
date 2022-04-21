@@ -11,3 +11,51 @@
 .add-project__btns-group > Button {
   flex-grow: 1;
 }
+
+.add-project__criteria {
+  border: 1px solid #2b2d4240;
+  border-radius: 15px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  overflow: auto;
+  margin: 0.5rem 0;
+}
+
+.add-project__criteria-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background-color: #edf2f4;
+  cursor: pointer;
+}
+
+.add-project__criteria-item.selected > .add-project__criteria-item-name {
+  color: #253cef90 !important;
+  font-weight: bold;
+}
+
+.add-project__criteria-item.add-btn {
+  background: #fff;
+  border: solid 1px #edf2f4;
+  text-align: center;
+  align-self: flex-end;
+}
+
+.add-project__criteria-item.add-btn > .add-project__criteria-item-name {
+  /* font-weight: bold; */
+  color: #253cef99;
+}
+
+.add-project__criteria-item.add-btn:hover {
+  background: #edf2f4;
+}
+
+.add-project__criteria-item > input {
+  width: 100%;
+}
