@@ -27,8 +27,8 @@ const AddTeam = ({ project }) => {
   };
 
   return (
-    <>
-      <button className="add-team__btn" onClick={handleOpen}>
+    <div className="flex-grow-1 text-end">
+      <button className="add-team__btn text-nowrap" onClick={handleOpen}>
         <b>+</b> Add Team
       </button>
       <Modal show={isOpen} onHide={handleClose}>
@@ -56,7 +56,7 @@ const AddTeam = ({ project }) => {
           </form>
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 };
 
