@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Breadcrumb } from "react-bootstrap";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import projectStore from "../stores/projectStore";
-import semesterStore from "../stores/semesterStore";
-import teamStore from "../stores/teamStore";
+import projectStore from "../../stores/projectStore";
+import semesterStore from "../../stores/semesterStore";
+import teamStore from "../../stores/teamStore";
+import criteriaStore from "../../stores/criteriaStore";
 import "./TeamDetails.css";
 
 const TeamDetails = () => {
@@ -39,7 +40,25 @@ const TeamDetails = () => {
     </NavLink>
   ));
 
-  console.log({ projectId, teamId, project, semester, team: project.team });
+  const projectCriteria = criteriaStore.criterias
+    .filter((criteria) => project.criteria.includes(criteria.id))
+    .map((criteria) => (
+      <tr>
+        <th>{criteria.name}</th>
+        <th className="text-center">0%</th>
+        <th className="text-center">{criteria.weight}</th>
+        <th className="text-center">0%</th>
+      </tr>
+    ));
+
+  console.log({
+    projectId,
+    teamId,
+    project,
+    semester,
+    team: project.team,
+    projectCriteria,
+  });
   return (
     <div className="team-details">
       <Breadcrumb>
@@ -62,7 +81,19 @@ const TeamDetails = () => {
       </div>
       <hr className="mt-1" />
       <div className="team-details__body">
-        <div className="team-details__body-card"></div>
+        <div className="team-details__body-table table-responsive ">
+          <table className="table align-middel table-hover">
+            <thead className="text-primary">
+              <tr>
+                <th style={{ width: "50%" }}>Criteria</th>
+                <th className="text-center">Avg. Score</th>
+                <th className="text-center">Weight</th>
+                <th className="text-center">Weighted Avg.</th>
+              </tr>
+            </thead>
+            <tbody>{projectCriteria}</tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -34,3 +34,16 @@
   background: #fff;
   font-weight: bold;
 }
+
+.team-details__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.team-details__body-table {
+  padding: 12px;
+  background: #fff;
+  border-radius: 15px;
+  text-transform: capitalize;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import TeamDetails from "../../TeamDetails/TeamDetails";
+import TeamDetails from "../TeamDetails/TeamDetails";
 import SemesterList from "../SemesterList/SemesterList";
 import SideMenu from "../SideMenu/SideMenu";
 import "./Home.css";
