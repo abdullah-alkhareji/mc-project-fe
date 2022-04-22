@@ -12,7 +12,7 @@ const SideMenu = () => {
   };
   return (
     <div className="side-menu">
-      <h1 className="side-menu__logo">{"<Admin Page>"}</h1>
+      <h2 className="side-menu__logo">{"<Admin Page>"}</h2>
 
       <div className="side-menu__logout">
         <Button onClick={handleLogout}>Logout</Button>

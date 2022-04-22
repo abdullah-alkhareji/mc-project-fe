@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import authStore from "../../stores/authStore";
-import AddProject from "../AddProject/AddProject";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import TeamDetails from "../../TeamDetails/TeamDetails";
 import SemesterList from "../SemesterList/SemesterList";
 import SideMenu from "../SideMenu/SideMenu";
 import "./Home.css";
@@ -13,7 +12,11 @@ const Home = () => {
         <SideMenu />
       </div>
       <div className="home__playground container">
-        <SemesterList />
+        <Routes>
+          <Route path="" element={<SemesterList />} />
+          <Route path="/details/:projectId" element={<TeamDetails />} />
+          <Route path="/details/:projectId/:teamId" element={<TeamDetails />} />
+        </Routes>
       </div>
     </div>
   );

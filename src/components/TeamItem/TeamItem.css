@@ -1,4 +1,4 @@
-.team-details {
+.team-item {
   padding: 0.5rem 0.75rem;
   background-color: #fff;
   border: solid 1px #0001;
@@ -11,7 +11,8 @@
   margin-bottom: 7px;
 }
 
-.team-details > p {
+.team-item > p {
   text-transform: capitalize;
   color: #333;
+  flex-grow: 1;
 }

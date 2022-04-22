@@ -1,0 +1,36 @@
+.team-details {
+}
+
+.team-details__header {
+}
+
+.team-details__header-project {
+}
+
+.team-details__header-semester {
+  color: #3338;
+  padding: 0 2px;
+}
+
+.team-details__filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 0 10px 15px;
+}
+
+.team-details__filter-item {
+  background: #fff5;
+  padding: 6px 12px;
+  border-radius: 15px;
+  box-shadow: 0 5px 10px #0003;
+  text-decoration: none;
+}
+
+.team-details__filter-item.active {
+  background: #fff;
+  font-weight: bold;
+}

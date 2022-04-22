@@ -36,10 +36,11 @@ const AddProject = ({ semester }) => {
     );
   };
 
-  let projectCriteria = criteriaStore.criterias
+  const projectCriteria = criteriaStore.criterias
     // .filter((cri) => criteriaa.includes(cri))
     .map((criteria) => (
       <div
+        key={criteria.id}
         className={`add-project__criteria-item ${
           criteriaa.includes(criteria.id) ? "selected" : ""
         }`}

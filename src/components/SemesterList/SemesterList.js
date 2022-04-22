@@ -27,7 +27,7 @@ const SemesterList = () => {
   return (
     <div className="semester-list">
       <div className="semester-list__header">
-        <h1>Semester List</h1>
+        <h2>Semester List</h2>
         <Button onClick={() => setIsOpen(!isOpen)}>Add Semester</Button>
       </div>
       <hr />
