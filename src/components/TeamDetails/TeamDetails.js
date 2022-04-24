@@ -33,6 +33,7 @@ const TeamDetails = () => {
 
   const teamList = project.team.map((t) => (
     <NavLink
+      key={t.id}
       className="team-details__filter-item"
       to={`/details/${t.project}/${t.id}`}
     >
@@ -43,11 +44,11 @@ const TeamDetails = () => {
   const projectCriteria = criteriaStore.criterias
     .filter((criteria) => project.criteria.includes(criteria.id))
     .map((criteria) => (
-      <tr>
+      <tr key={criteria.id}>
         <th>{criteria.name}</th>
         <th className="text-center">0%</th>
         <th className="text-center">{criteria.weight}</th>
-        <th className="text-center">0%</th>
+        <th className="text-center">0</th>
       </tr>
     ));
 

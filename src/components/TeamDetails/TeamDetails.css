@@ -42,7 +42,7 @@
 }
 
 .team-details__body-table {
-  padding: 12px;
+  padding: 12px 12px 0;
   background: #fff;
   border-radius: 15px;
   text-transform: capitalize;
