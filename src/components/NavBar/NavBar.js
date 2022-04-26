@@ -1,24 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./SideMenu.css";
+import "./NavBar.css";
 import Button from "../Button";
 import authStore from "../../stores/authStore";
 
-const SideMenu = () => {
+const NavBar = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     authStore.logout();
     navigate("auth/login");
   };
   return (
-    <div className="side-menu">
-      <h2 className="side-menu__logo">{"<Admin Page>"}</h2>
+    <div className="nav-bar">
+      <h2 className="nav-bar__logo">{"<Evaluation>"}</h2>
 
-      <div className="side-menu__logout">
+      <div className="nav-bar__logout">
         <Button onClick={handleLogout}>Logout</Button>
       </div>
     </div>
   );
 };
 
-export default SideMenu;
+export default NavBar;

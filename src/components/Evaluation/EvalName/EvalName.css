@@ -1,0 +1,17 @@
+.eval-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.eval-name__card {
+  background: #fff;
+  border: #3333 solid 1px;
+  border-radius: 15px;
+  padding: 7px 12px;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.eval-name__card > input {
+  flex-grow: 1;
+}

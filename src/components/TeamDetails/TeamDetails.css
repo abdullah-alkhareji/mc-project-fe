@@ -2,9 +2,15 @@
 }
 
 .team-details__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.team-details__header-project {
+.team-details__header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .team-details__header-semester {

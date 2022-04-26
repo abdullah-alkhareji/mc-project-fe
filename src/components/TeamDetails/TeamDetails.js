@@ -1,65 +1,88 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Breadcrumb } from "react-bootstrap";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import projectStore from "../../stores/projectStore";
 import semesterStore from "../../stores/semesterStore";
-import teamStore from "../../stores/teamStore";
-import criteriaStore from "../../stores/criteriaStore";
 import "./TeamDetails.css";
+import Button from "../Button";
+import { baseUrlFe } from "../../stores/instance";
+import evalStore from "../../stores/evalStore";
+import { observer } from "mobx-react";
+import criteriaStore from "../../stores/criteriaStore";
 
 const TeamDetails = () => {
   const navigate = useNavigate();
   const { projectId, teamId } = useParams();
 
-  const [project, setProject] = useState(
-    projectStore.projects.find(
-      (project) => String(project.id) === String(projectId)
-    )
+  const [showAlert, setShowAlert] = useState(false);
+
+  const project = projectId
+    ? projectStore.projects.find(
+        (project) => String(project.id) === String(projectId)
+      )
+    : "null???";
+
+  const criteria = criteriaStore.criterias
+    .filter((criteria) => project.criteria.includes(criteria.id))
+    .map((criteria) => criteria);
+
+  const [url, setUrl] = useState(
+    project.linkId ? `${baseUrlFe}/evaluation/${project.linkId.id}` : null
   );
 
-  const [semester, setSemester] = useState(
-    semesterStore.semesters.find(
-      (semester) => String(semester.id) === String(project.semester)
-    )
+  const semester = semesterStore.semesters.find(
+    (semester) => semester.id === project.semester
   );
 
   const [team, setTeam] = useState(
     teamId
-      ? teamStore.teams.find((team) => String(team.id) === String(teamId))
+      ? project.team.find((team) => String(team.id) === String(teamId))
       : null
   );
 
-  !project && <p>Loading</p>;
+  console.log({ projectId, teamId, project, criteria, url, semester, team });
+
+  const [evaluation, setEvaluation] = useState(project.linkId);
 
   const teamList = project.team.map((t) => (
     <NavLink
       key={t.id}
       className="team-details__filter-item"
       to={`/details/${t.project}/${t.id}`}
+      onClick={() =>
+        setTeam(project.team.find((team) => String(team.id) === String(t.id)))
+      }
     >
       {t.name}
     </NavLink>
   ));
 
-  const projectCriteria = criteriaStore.criterias
-    .filter((criteria) => project.criteria.includes(criteria.id))
-    .map((criteria) => (
-      <tr key={criteria.id}>
-        <th>{criteria.name}</th>
-        <th className="text-center">0%</th>
-        <th className="text-center">{criteria.weight}</th>
-        <th className="text-center">0</th>
-      </tr>
-    ));
+  const projectCriteria = criteria.map((criteria) => (
+    <tr key={criteria.id}>
+      <th>{criteria.name}</th>
+      <th className="text-center">0%</th>
+      <th className="text-center">{criteria.weight}</th>
+      <th className="text-center">0</th>
+    </tr>
+  ));
 
-  console.log({
-    projectId,
-    teamId,
-    project,
-    semester,
-    team: project.team,
-    projectCriteria,
-  });
+  // const url = `${baseUrlFe}/evaluation/${project.id}/${semester.id}`;
+
+  useEffect(() => {
+    setTimeout(() => setShowAlert(false), 4000);
+  }, [showAlert]);
+
+  const handleCopy = async () => {
+    if (evaluation) {
+      setUrl(baseUrlFe + "/evaluation/" + evaluation.id);
+    } else {
+      await evalStore.createEval(project, setEvaluation);
+      setUrl(baseUrlFe + "/evaluation/" + evaluation.id);
+    }
+    await navigator.clipboard.writeText(url);
+    setShowAlert(true);
+  };
+
   return (
     <div className="team-details">
       <Breadcrumb>
@@ -67,14 +90,29 @@ const TeamDetails = () => {
         <Breadcrumb.Item active>{project.name}</Breadcrumb.Item>
       </Breadcrumb>
       <div className="team-details__header">
-        <h2 className="team-details__header-project">{project.name}</h2>
-        <h5 className="team-details__header-semester">{semester.name}</h5>
+        <div className="team-details__header-left">
+          <h2 className="team-details__header-project">
+            {project ? project.name : "Loading"}
+          </h2>
+          <h5 className="team-details__header-semester">
+            {semester ? semester.name : "Loading"}
+          </h5>
+        </div>
+        <div className="team-details__header-right">
+          <Button onClick={handleCopy}>Copy Share Link</Button>
+        </div>
       </div>
+      {showAlert && (
+        <div className="my-3 alert alert-primary" role="alert">
+          Link Copied Successful ({url})
+        </div>
+      )}
       <hr />
       <div className="team-details__filter">
         <NavLink
           className="team-details__filter-item"
           to={`/details/${projectId}`}
+          onClick={() => setTeam(null)}
         >
           All
         </NavLink>
@@ -100,4 +138,4 @@ const TeamDetails = () => {
   );
 };
 
-export default TeamDetails;
+export default observer(TeamDetails);

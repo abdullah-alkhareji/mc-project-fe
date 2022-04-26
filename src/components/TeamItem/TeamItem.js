@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import projectStore from "../../stores/projectStore";
 import "./TeamItem.css";
 
 const TeamItem = ({ team, project }) => {

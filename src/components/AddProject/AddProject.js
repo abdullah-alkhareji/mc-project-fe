@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import "./AddProject.css";
 import Button from "../Button";
@@ -36,6 +36,8 @@ const AddProject = ({ semester }) => {
     );
   };
 
+  console.log({ criteriaa });
+
   const projectCriteria = criteriaStore.criterias
     // .filter((cri) => criteriaa.includes(cri))
     .map((criteria) => (
@@ -50,12 +52,6 @@ const AddProject = ({ semester }) => {
         <p className="add-project__criteria-item-weight">{criteria.weight}</p>
       </div>
     ));
-
-  // console.log(
-  //   "cri",
-  //   criteriaStore.criterias.filter((c) => criteria.includes(c))
-  //   // .map((c) => c.name)
-  // );
 
   const handleSelect = (e) => {
     if (criteriaa.includes(e)) {

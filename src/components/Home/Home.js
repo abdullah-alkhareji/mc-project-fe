@@ -1,11 +1,17 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import TeamDetails from "../TeamDetails/TeamDetails";
 import SemesterList from "../SemesterList/SemesterList";
 import SideMenu from "../SideMenu/SideMenu";
 import "./Home.css";
+import authStore from "../../stores/authStore";
 
 const Home = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    !authStore.user && navigate("/auth/login");
+  }, [authStore.user]);
+
   return (
     <div className="home">
       <div className="home__side-menu">

@@ -1,0 +1,23 @@
+.evaluation {
+  min-height: 100vh;
+  background: #edf2f4;
+  display: flex;
+  flex-direction: column;
+}
+
+.evaluation__side-menu {
+  /* background: #253CEF; */
+  padding: 12px;
+}
+
+.evaluation__playground {
+  /* background: blue; */
+}
+
+@media screen and (max-width: 768px) {
+  .evaluation__side-menu,
+  .evaluation__playground {
+    /* padding: 0; */
+    flex-grow: unset;
+  }
+}

@@ -11,6 +11,7 @@ class ProjectStore {
     try {
       const res = await instance.get("api/project/");
       this.projects = res.data;
+      return res;
     } catch (error) {
       console.log({ error });
     }
@@ -26,7 +27,6 @@ class ProjectStore {
     try {
       project.semester = semesterId;
       project.criteria = criteria;
-      console.log({ project });
       const res = await instance.post("api/project/", project);
       this.projects.push(res.data);
       handleClose();

@@ -32,7 +32,7 @@ class AuthStore {
       this.setUser(res.data.access);
       const res2 = await instance.get("/api/users/me/");
       this.user = res2.data;
-      navigate("/");
+      navigate("");
     } catch (error) {
       console.log({ error });
     }
@@ -46,9 +46,9 @@ class AuthStore {
         const res2 = await instance.get("/api/users/me/");
         this.user = res2.data;
       } catch (error) {
-        this.unSetUser();
+        this.logout();
       }
-    } else this.unSetUser();
+    } else this.logout();
   };
 }
 
