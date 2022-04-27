@@ -1,14 +1,18 @@
-import React from "react";
-import { Card } from "react-bootstrap";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import evalStore from "../../../stores/evalStore";
 import Button from "../../Button";
 import "./EvalName.css";
 
 const EvalName = () => {
-  const { projectId, semesterId } = useParams();
+  const [judge, setJudge] = useState(null);
+  console.log(judge);
+  const { evalId } = useParams();
+
   const navigate = useNavigate();
-  const handleNext = () => {
-    navigate(`/evaluation/${projectId}/${semesterId}/eval`);
+  const handleNext = (e) => {
+    e.preventDefault();
+    evalStore.addJudge(judge, evalId, navigate);
   };
   return (
     <div className="eval-name">
@@ -18,7 +22,9 @@ const EvalName = () => {
             className="ak-input"
             type="text"
             placeholder="Judge Name"
-            onChange={(e) => {}}
+            onChange={(e) => {
+              setJudge({ ...judge, name: e.target.value });
+            }}
           />
           <Button type="submit">Next</Button>
         </div>

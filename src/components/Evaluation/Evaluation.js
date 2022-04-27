@@ -13,15 +13,19 @@ import "./Evaluation.css";
 const Evaluation = () => {
   const { evalId } = useParams();
 
-  const evaluation = evalStore.evals.find((evall) => evall.id === evalId);
+  const evaluation = evalId
+    ? evalStore.evals.find((evall) => evall.id === evalId)
+    : null;
 
-  const project = projectStore.projects.find(
-    (project) => project.id === evaluation.project
-  );
+  const project = projectStore.projects
+    ? projectStore.projects.find((project) => project.id === evaluation.project)
+    : null;
 
-  const semester = semesterStore.semesters.find(
-    (semester) => semester.id === project.semester
-  );
+  const semester = semesterStore.semesters
+    ? semesterStore.semesters.find(
+        (semester) => semester.id === project.semester
+      )
+    : "";
 
   console.log({ evalId, evaluation, project, semester });
 
@@ -32,14 +36,20 @@ const Evaluation = () => {
       </div>
       <div className="evaluation__playground container">
         <div className="evaluation__playground-header">
-          <h2>{project ? project.name : "hi"}</h2>
-          <h5>{semester ? semester.name : "hi2"}</h5>
+          <h2>{project != null ? project.name : ""}</h2>
+          <h5>{semester != null ? semester.name : ""}</h5>
         </div>
         <hr />
         <Routes>
-          <Route path="/" element={<EvalName />} />
-          <Route path="eval" element={<EvalPage />} />
-          <Route path="thanks" element={<EvalThanks />} />
+          <Route
+            path="/:evalId"
+            element={<EvalName evaluation={evaluation} />}
+          />
+          <Route
+            path="/:evalId/:judgeId"
+            element={<EvalPage evaluation={evaluation} project={project} />}
+          />
+          <Route path="/thanks" element={<EvalThanks />} />
         </Routes>
       </div>
     </div>

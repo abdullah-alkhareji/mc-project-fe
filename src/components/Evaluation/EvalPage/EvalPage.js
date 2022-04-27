@@ -1,20 +1,38 @@
 import React, { useState } from "react";
 import { Accordion } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import projectStore from "../../../stores/projectStore";
-import semesterStore from "../../../stores/semesterStore";
-import teamStore from "../../../stores/teamStore";
 import "./EvalPage.css";
-import EvalTeamItem from "./EvalTeamItem";
+import EvalTeamItem from "../EvalPage/EvalTeamItem";
+import evalStore from "../../../stores/evalStore";
+import { useNavigate, useParams } from "react-router-dom";
+import Button from "../../Button";
 
-const EvalPage = ({ semester, project, teams }) => {
-  console.log({ semester, project, teams });
-  const teamList = teams.map((team) => (
-    <EvalTeamItem key={team.id} team={team} project={project} />
+const EvalPage = ({ evaluation }) => {
+  const { judgeId } = useParams();
+  const judge = evalStore.judge.find((judge) => judge.id === +judgeId);
+  const [mark, setMark] = useState(judge);
+
+  const navigate = useNavigate();
+
+  const judgeMarking = { ...mark };
+  console.log({ evaluation, judgeId, judge, mark, judgeMarking });
+
+  const teamList = judgeMarking.grade.map((team) => (
+    <EvalTeamItem
+      key={team.id}
+      team={team}
+      setMark={setMark}
+      judgeMarking={judgeMarking}
+    />
   ));
+
   return (
     <div className="eval-page">
-      <Accordion defaultActiveKey={0}>{teamList}</Accordion>
+      <Accordion className="w-100" defaultActiveKey={0}>
+        {teamList}
+      </Accordion>
+      <Button onClick={() => evalStore.updateJudge(mark, navigate)}>
+        Submit
+      </Button>
     </div>
   );
 };

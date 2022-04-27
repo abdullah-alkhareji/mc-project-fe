@@ -8,7 +8,6 @@ import Button from "../Button";
 import { baseUrlFe } from "../../stores/instance";
 import evalStore from "../../stores/evalStore";
 import { observer } from "mobx-react";
-import criteriaStore from "../../stores/criteriaStore";
 
 const TeamDetails = () => {
   const navigate = useNavigate();
@@ -22,9 +21,7 @@ const TeamDetails = () => {
       )
     : "null???";
 
-  const criteria = criteriaStore.criterias
-    .filter((criteria) => project.criteria.includes(criteria.id))
-    .map((criteria) => criteria);
+  const criteria = project.criteria.map((criteria) => criteria);
 
   const [url, setUrl] = useState(
     project.linkId ? `${baseUrlFe}/evaluation/${project.linkId.id}` : null
@@ -40,9 +37,17 @@ const TeamDetails = () => {
       : null
   );
 
-  console.log({ projectId, teamId, project, criteria, url, semester, team });
-
   const [evaluation, setEvaluation] = useState(project.linkId);
+  console.log({
+    projectId,
+    teamId,
+    project,
+    criteria,
+    url,
+    semester,
+    team,
+    evaluation,
+  });
 
   const teamList = project.team.map((t) => (
     <NavLink
