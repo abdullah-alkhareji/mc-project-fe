@@ -1,7 +1,6 @@
 import React from "react";
 
 const EvalCriteriaItem = ({ criteria, setMark, judgeMarking }) => {
-  console.log({ criteria });
   return (
     <div>
       <div className="d-flex flex-column">

@@ -11,7 +11,6 @@ const EvalTeamItem = ({ team, setMark, judgeMarking }) => {
       judgeMarking={judgeMarking}
     />
   ));
-  console.log(team);
   return (
     <Accordion.Item eventKey={String(team.team_id)}>
       <Accordion.Header>

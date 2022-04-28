@@ -36,8 +36,6 @@ const AddProject = ({ semester }) => {
     );
   };
 
-  console.log({ criteriaa });
-
   const projectCriteria = criteriaStore.criterias
     // .filter((cri) => criteriaa.includes(cri))
     .map((criteria) => (

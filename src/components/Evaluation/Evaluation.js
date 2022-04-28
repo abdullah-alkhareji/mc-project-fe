@@ -33,8 +33,6 @@ const Evaluation = () => {
         )
       : "";
 
-  console.log({ evalId, evaluation, project, semester });
-
   if (evaluation.isLocked === true) return <EvalLocked />;
 
   return (

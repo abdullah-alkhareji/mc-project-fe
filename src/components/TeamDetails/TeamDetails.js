@@ -72,18 +72,6 @@ const TeamDetails = () => {
   let teamCriteria =
     teamId && evaluation ? evaluation.avg[teamId].criteria.map((c) => c) : "";
 
-  console.log({
-    projectId,
-    teamId,
-    project,
-    criteria,
-    teamCriteria,
-    semester,
-    teams,
-    team,
-    evaluation,
-  });
-
   const projectCriteria = criteria
     ? criteria.map((criteria) => (
         <tr key={criteria.criteria_id && criteria.criteria_id}>
@@ -139,7 +127,9 @@ const TeamDetails = () => {
     <div className="team-details">
       <Breadcrumb>
         <Breadcrumb.Item onClick={() => navigate("/")}>Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>{project.name}</Breadcrumb.Item>
+        <Breadcrumb.Item active>
+          {project ? project.name : "...!"}
+        </Breadcrumb.Item>
       </Breadcrumb>
       <div className="team-details__header">
         <div className="team-details__header-left">
@@ -190,7 +180,11 @@ const TeamDetails = () => {
           </table>
           <h4 className="px-1 pb-3">
             Total:{" "}
-            {teamId ? evaluation.avg[teamId].total : evaluation.avg[0].total}
+            {evaluation
+              ? teamId
+                ? evaluation.avg[teamId].total
+                : evaluation.avg[0].total
+              : ""}
           </h4>
         </div>
       </div>

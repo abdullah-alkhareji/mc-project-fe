@@ -6,7 +6,6 @@ import "./EvalName.css";
 
 const EvalName = () => {
   const [judge, setJudge] = useState(null);
-  console.log(judge);
   const { evalId } = useParams();
 
   const navigate = useNavigate();

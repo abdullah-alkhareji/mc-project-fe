@@ -14,7 +14,6 @@ const EvalPage = ({ evaluation }) => {
   const navigate = useNavigate();
 
   const judgeMarking = { ...mark };
-  console.log({ evaluation, judgeId, judge, mark, judgeMarking });
 
   const teamList = judgeMarking.grade.map((team) => (
     <EvalTeamItem
