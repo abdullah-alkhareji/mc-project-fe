@@ -8,6 +8,7 @@ import Button from "../Button";
 import { baseUrlFe } from "../../stores/instance";
 import evalStore from "../../stores/evalStore";
 import { observer } from "mobx-react";
+import teamStore from "../../stores/teamStore";
 
 const TeamDetails = () => {
   const navigate = useNavigate();
@@ -15,21 +16,11 @@ const TeamDetails = () => {
 
   const [showAlert, setShowAlert] = useState(false);
 
-  const project = projectId
+  const project = projectStore.projects
     ? projectStore.projects.find(
         (project) => String(project.id) === String(projectId)
       )
-    : "null???";
-
-  const criteria = project.criteria.map((criteria) => criteria);
-
-  const [url, setUrl] = useState(
-    project.linkId ? `${baseUrlFe}/evaluation/${project.linkId.id}` : null
-  );
-
-  const semester = semesterStore.semesters.find(
-    (semester) => semester.id === project.semester
-  );
+    : "";
 
   const [team, setTeam] = useState(
     teamId
@@ -37,55 +28,111 @@ const TeamDetails = () => {
       : null
   );
 
-  const [evaluation, setEvaluation] = useState(project.linkId);
+  const semester =
+    semesterStore.semesters && project
+      ? semesterStore.semesters.find(
+          (semester) => semester.id === project.semester
+        )
+      : "";
+
+  const teams =
+    teamStore.teams && project
+      ? teamStore.teams
+          .map((team) => (team.project === project.id ? team : null))
+          .filter((team) => team !== null)
+      : "";
+
+  const teamList =
+    teams && project
+      ? teams.map((t) => (
+          <NavLink
+            key={t.id}
+            className="team-details__filter-item"
+            to={`/details/${t.project}/${t.id}`}
+            onClick={() =>
+              setTeam(
+                project.team.find((team) => String(team.id) === String(t.id))
+              )
+            }
+          >
+            {t.name}
+          </NavLink>
+        ))
+      : "";
+
+  // const criteria = criteriaStore.criterias && project ? project.criteria.map((criteria) => criteria) : "";
+
+  const evaluation =
+    evalStore.evals && project
+      ? evalStore.evals.find((e) => (e.id === project.linkId.id ? e : ""))
+      : "";
+
+  const criteria = evaluation ? evaluation.avg[0].criteria.map((c) => c) : "";
+
+  let teamCriteria =
+    teamId && evaluation ? evaluation.avg[teamId].criteria.map((c) => c) : "";
+
   console.log({
     projectId,
     teamId,
     project,
     criteria,
-    url,
+    teamCriteria,
     semester,
+    teams,
     team,
     evaluation,
   });
 
-  const teamList = project.team.map((t) => (
-    <NavLink
-      key={t.id}
-      className="team-details__filter-item"
-      to={`/details/${t.project}/${t.id}`}
-      onClick={() =>
-        setTeam(project.team.find((team) => String(team.id) === String(t.id)))
-      }
-    >
-      {t.name}
-    </NavLink>
-  ));
+  const projectCriteria = criteria
+    ? criteria.map((criteria) => (
+        <tr key={criteria.criteria_id && criteria.criteria_id}>
+          <th>{criteria.criteria_name ? criteria.criteria_name : ""}</th>
+          <th className="text-center">{criteria.avg ? criteria.avg : "0"}%</th>
+          <th className="text-center">
+            {criteria.criteria_weight ? criteria.criteria_weight : "0"}
+          </th>
+          <th className="text-center">
+            {criteria.avg_weight ? criteria.avg_weight : "0"}
+          </th>
+        </tr>
+      ))
+    : "";
 
-  const projectCriteria = criteria.map((criteria) => (
-    <tr key={criteria.id}>
-      <th>{criteria.name}</th>
-      <th className="text-center">0%</th>
-      <th className="text-center">{criteria.weight}</th>
-      <th className="text-center">0</th>
-    </tr>
-  ));
-
-  // const url = `${baseUrlFe}/evaluation/${project.id}/${semester.id}`;
+  const teamsCriteria = teamCriteria
+    ? teamCriteria.map((criteria) => (
+        <tr key={criteria.criteria_id && criteria.criteria_id}>
+          <th>{criteria.criteria_name ? criteria.criteria_name : ""}</th>
+          <th className="text-center">{criteria.avg ? criteria.avg : "0"}%</th>
+          <th className="text-center">
+            {criteria.criteria_weight ? criteria.criteria_weight : "0"}
+          </th>
+          <th className="text-center">
+            {criteria.avg_weight ? criteria.avg_weight : "0"}
+          </th>
+        </tr>
+      ))
+    : "";
 
   useEffect(() => {
     setTimeout(() => setShowAlert(false), 4000);
   }, [showAlert]);
 
   const handleCopy = async () => {
-    if (evaluation) {
-      setUrl(baseUrlFe + "/evaluation/" + evaluation.id);
-    } else {
-      await evalStore.createEval(project, setEvaluation);
-      setUrl(baseUrlFe + "/evaluation/" + evaluation.id);
-    }
-    await navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(`${baseUrlFe}/evaluation/${evaluation.id}`);
     setShowAlert(true);
+  };
+
+  const handleLock = (e) => {
+    e.preventDefault();
+    evaluation.isLocked = true;
+    evalStore.evaluationLock(evaluation);
+  };
+
+  const handleUnlock = (e) => {
+    e.preventDefault();
+    evaluation.isLocked = false;
+    evalStore.evaluationLock(evaluation);
   };
 
   return (
@@ -104,15 +151,19 @@ const TeamDetails = () => {
           </h5>
         </div>
         <div className="team-details__header-right">
+          {evaluation.isLocked ? (
+            <Button onClick={handleUnlock}>Unlock</Button>
+          ) : (
+            <Button onClick={handleLock}>Lock</Button>
+          )}
           <Button onClick={handleCopy}>Copy Share Link</Button>
         </div>
       </div>
       {showAlert && (
         <div className="my-3 alert alert-primary" role="alert">
-          Link Copied Successful ({url})
+          Link Copied Successful
         </div>
       )}
-      <hr />
       <div className="team-details__filter">
         <NavLink
           className="team-details__filter-item"
@@ -135,8 +186,12 @@ const TeamDetails = () => {
                 <th className="text-center">Weighted Avg.</th>
               </tr>
             </thead>
-            <tbody>{projectCriteria}</tbody>
+            <tbody>{teamId ? teamsCriteria : projectCriteria}</tbody>
           </table>
+          <h4 className="px-1 pb-3">
+            Total:{" "}
+            {teamId ? evaluation.avg[teamId].total : evaluation.avg[0].total}
+          </h4>
         </div>
       </div>
     </div>

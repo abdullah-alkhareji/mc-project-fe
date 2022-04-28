@@ -5,6 +5,7 @@ import evalStore from "../../stores/evalStore";
 import projectStore from "../../stores/projectStore";
 import semesterStore from "../../stores/semesterStore";
 import NavBar from "../NavBar/NavBar";
+import EvalLocked from "./EvalLocked";
 import EvalName from "./EvalName/EvalName";
 import EvalPage from "./EvalPage/EvalPage";
 import EvalThanks from "./EvalThanks/EvalThanks";
@@ -13,21 +14,28 @@ import "./Evaluation.css";
 const Evaluation = () => {
   const { evalId } = useParams();
 
-  const evaluation = evalId
-    ? evalStore.evals.find((evall) => evall.id === evalId)
-    : null;
+  const evaluation =
+    evalStore.evals && evalId
+      ? evalStore.evals.find((evall) => evall.id === evalId)
+      : "";
 
-  const project = projectStore.projects
-    ? projectStore.projects.find((project) => project.id === evaluation.project)
-    : null;
+  const project =
+    projectStore.projects && evaluation
+      ? projectStore.projects.find(
+          (project) => project.id === evaluation.project
+        )
+      : "";
 
-  const semester = semesterStore.semesters
-    ? semesterStore.semesters.find(
-        (semester) => semester.id === project.semester
-      )
-    : "";
+  const semester =
+    semesterStore.semesters && project
+      ? semesterStore.semesters.find(
+          (semester) => semester.id === project.semester
+        )
+      : "";
 
   console.log({ evalId, evaluation, project, semester });
+
+  if (evaluation.isLocked === true) return <EvalLocked />;
 
   return (
     <div className="evaluation">
@@ -49,7 +57,7 @@ const Evaluation = () => {
             path="/:evalId/:judgeId"
             element={<EvalPage evaluation={evaluation} project={project} />}
           />
-          <Route path="/thanks" element={<EvalThanks />} />
+          <Route path="/:evalId/:judgeId/thanks" element={<EvalThanks />} />
         </Routes>
       </div>
     </div>

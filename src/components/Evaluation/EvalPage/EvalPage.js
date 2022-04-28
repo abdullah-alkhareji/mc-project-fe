@@ -18,7 +18,7 @@ const EvalPage = ({ evaluation }) => {
 
   const teamList = judgeMarking.grade.map((team) => (
     <EvalTeamItem
-      key={team.id}
+      key={team.team_id}
       team={team}
       setMark={setMark}
       judgeMarking={judgeMarking}
@@ -30,7 +30,12 @@ const EvalPage = ({ evaluation }) => {
       <Accordion className="w-100" defaultActiveKey={0}>
         {teamList}
       </Accordion>
-      <Button onClick={() => evalStore.updateJudge(mark, navigate)}>
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          evalStore.updateJudge(mark, navigate);
+        }}
+      >
         Submit
       </Button>
     </div>

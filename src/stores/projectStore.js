@@ -1,5 +1,8 @@
 import { makeAutoObservable } from "mobx";
+import evalStore from "./evalStore";
 import { instance } from "./instance";
+import semesterStore from "./semesterStore";
+import teamStore from "./teamStore";
 
 class ProjectStore {
   constructor() {
@@ -28,7 +31,11 @@ class ProjectStore {
       project.semester = semesterId;
       project.criteria = criteria;
       const res = await instance.post("api/project/", project);
+      evalStore.createEval(res.data.id);
       this.projects.push(res.data);
+      await semesterStore.fetchSemesters();
+      await teamStore.fetchTeams();
+      this.fetchProjects();
       handleClose();
       setCriteriaa([]);
     } catch (error) {

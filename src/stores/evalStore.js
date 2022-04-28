@@ -12,19 +12,18 @@ class EvalStore {
 
   fetchEval = async () => {
     try {
-      const res = await instance.get("api/eval/");
+      const res = await instance.get("api/evaluation/");
       this.evals = res.data;
     } catch (error) {
       console.log({ error });
     }
   };
 
-  createEval = async (project, setEvaluation) => {
+  createEval = async (project) => {
     try {
-      const Project = { project: project.id };
-      const res = await instance.post("api/eval/", Project);
-      setEvaluation(res.data);
+      const res = await instance.post("api/evaluation/", { project: project });
       this.eval = res.data;
+      this.evals.push(res.data);
     } catch (error) {
       console.log({ error });
     }
@@ -32,7 +31,7 @@ class EvalStore {
 
   addJudge = async (judgeData, evalId, navigate) => {
     try {
-      judgeData.eval = evalId;
+      judgeData.evaluation = evalId;
       const res = await instance.post("api/judge/", judgeData);
       this.judge.push(res.data);
       navigate(`/evaluation/${evalId}/${res.data.id}`);
@@ -53,10 +52,15 @@ class EvalStore {
   updateJudge = async (judge, navigate) => {
     try {
       await instance.put(`api/judge/${judge.id}/`, judge);
-      navigate(`/evaluation/thanks`);
+      navigate(`/evaluation/${judge.evaluation}/${judge.id}/thanks`);
     } catch (error) {
       console.log(error.response);
     }
+  };
+
+  evaluationLock = async (evaluation) => {
+    await instance.put(`/api/evaluation/${evaluation.id}/`, evaluation);
+    this.fetchEval();
   };
 }
 
