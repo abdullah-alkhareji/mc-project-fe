@@ -50,17 +50,13 @@ const TeamDetails = () => {
             className="team-details__filter-item"
             to={`/details/${t.project}/${t.id}`}
             onClick={() =>
-              setTeam(
-                project.team.find((team) => String(team.id) === String(t.id))
-              )
+              setTeam(project.team.find((team) => team.id === +t.id))
             }
           >
             {t.name}
           </NavLink>
         ))
       : "";
-
-  // const criteria = criteriaStore.criterias && project ? project.criteria.map((criteria) => criteria) : "";
 
   const evaluation =
     evalStore.evals && project
